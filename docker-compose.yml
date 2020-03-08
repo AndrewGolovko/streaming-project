@@ -1,0 +1,51 @@
+---
+version: '2'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:5.1.0
+    hostname: zookeeper
+    ports:
+      - '2181:2181'
+    env_file:
+      - env/zookeeper.env
+
+  kafka:
+    image: confluentinc/cp-enterprise-kafka:5.1.0
+    hostname: kafka
+    ports:
+      - '9092:9092'
+      - '39092:39092'
+    depends_on:
+      - zookeeper
+    env_file:
+      - env/kafka.env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  driver-rides-emulator:
+    image: ${REGISTRY_URI}/ucu-class/driver-rides-emulatorAKIA3FYUXXRNHPNPZUDP:${STUDENT_NAME}-0.1
+    depends_on:
+      - kafka
+    env_file:
+      - env/app.env
+
+  streaming-app:
+    image: ${REGISTRY_URI}/ucu-class/streaming-app:${STUDENT_NAME}-0.1
+    depends_on:
+      - kafka
+    env_file:
+      - env/app.env
+
+  weather-provider:
+    image: ${REGISTRY_URI}/ucu-class/weather-provider:${STUDENT_NAME}-0.1
+    depends_on:
+      - kafka
+    env_file:
+      - env/app.env
+
+  fare-prediction-app:
+    image: ${REGISTRY_URI}/ucu-class/fare-prediction-app:${STUDENT_NAME}-0.1
+    depends_on:
+      - kafka
+    env_file:
+      - env/app.env
