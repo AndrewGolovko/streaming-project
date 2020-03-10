@@ -1,4 +1,6 @@
-### Team Maksandrmyk
+# Streaming course final project assignment
+
+### team-maxandrmyk
 
 - Andrii Holovko
 - Maksym Tarnavskyi

@@ -23,7 +23,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   driver-rides-emulator:
-    image: ${REGISTRY_URI}/ucu-class/driver-rides-emulatorAKIA3FYUXXRNHPNPZUDP:${STUDENT_NAME}-0.1
+    image: ${REGISTRY_URI}/ucu-class/driver-rides-emulator:${STUDENT_NAME}-0.1
     depends_on:
       - kafka
     env_file:
